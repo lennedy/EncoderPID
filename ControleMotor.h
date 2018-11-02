@@ -4,20 +4,23 @@
 #include "Encoder.h"
 #include "Motor.h"
 #include "PID_v1.h"
+#include "Util.h"
 
 class ControleMotor{
 private:
 	double Kp=2, Ki=5, Kd=1;
 	double Setpoint, Input, Output;
 	float tempoAmostragem;
-	Encoder encoder;
-	Motor motor;
+	static Encoder encoder;
+	static Motor motor;
 	PID pid;
+	Util util;
+	bool contrVelocidade;
 
 public:
 	ControleMotor();
 
-	void config();
+	void config(bool contrVelocidade=true);
 
 	void loop();
 
