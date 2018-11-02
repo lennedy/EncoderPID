@@ -1,7 +1,7 @@
 #include "Encoder.h"
 
 Encoder::Encoder(unsigned int pin1, unsigned int pin2):CONTADOR_PIN(pin1),SENTIDO_PIN(pin2){
-	count=0;
+	numPulsos=0;
 }
 
 void Encoder::config(){
@@ -9,13 +9,13 @@ void Encoder::config(){
   pinMode(SENTIDO_PIN,INPUT);
 }
 
-void Encoder::pulso(){
-
+void Encoder::lerPulso(){
+	//Serial.println("teste");
   if(pinEdgeHigh()){
     if(digitalRead(SENTIDO_PIN))
-      count++;
+      numPulsos++;
     else
-      count--;
+      numPulsos--;
   }
 
 }
@@ -32,4 +32,20 @@ bool Encoder::pinEdgeHigh(){
    }
    valPinLast= valPin;
    return false;
+}
+
+float Encoder::calculaVelocidade(){
+	const long pulsosAtuais = getNumPulsos();
+	const long tempoAtual = millis(); 
+
+	long deltaS = pulsosAtuais 	- numPulsosAnterior;
+	long deltaT = tempoAtual 		- tempoAnterior;
+	
+	float velocidade = deltaS/((float)deltaT);
+
+	
+	tempoAnterior	=	tempoAtual;
+	numPulsosAnterior	=	pulsosAtuais;
+
+	return velocidade;
 }
