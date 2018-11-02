@@ -1,10 +1,10 @@
-#include <ControleMotor.h>
+#include <Encoder.h>
 
-Encoder e;
+Encoder e(12,11);
 
 void setup(){
   Serial.begin(9600);
-  m.config();
+  e.config();
 }
 
 void loop(){
