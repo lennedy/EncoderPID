@@ -9,6 +9,7 @@ private:
 	const int PWM_PIN, DIRECAO_PIN;
 public:
 	Motor(int pwmPin, int direcaoPin);
+	void config();
 	void acionar(float tensao);
 };
 

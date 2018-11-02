@@ -4,6 +4,11 @@ Motor::Motor(int pwmPin, int direcaoPin):PWM_PIN(pwmPin), DIRECAO_PIN(direcaoPin
 	
 }
 
+void Motor::config(){
+  pinMode(PWM_PIN,OUTPUT);
+  pinMode(DIRECAO_PIN,OUTPUT);
+}
+
 void Motor::acionar(float percentualTensao){
 
 	if(percentualTensao < -100) 
@@ -23,3 +28,4 @@ void Motor::acionar(float percentualTensao){
 	
 
 }
+
