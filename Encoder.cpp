@@ -2,6 +2,7 @@
 
 Encoder::Encoder(unsigned int pin1, unsigned int pin2):CONTADOR_PIN(pin1),SENTIDO_PIN(pin2){
 	numPulsos=0;
+	pulsosPorRevolucao = PULSOS_POR_REVOLUCAO;
 }
 
 void Encoder::config(){
@@ -48,4 +49,12 @@ float Encoder::calculaVelocidade(){
 	numPulsosAnterior	=	pulsosAtuais;
 
 	return velocidade;
+}
+
+float Encoder::calculaAngulo(){
+	float angulo;
+	
+	angulo = 360*getNumPulsos()/pulsosPorRevolucao;
+
+	return angulo;
 }
