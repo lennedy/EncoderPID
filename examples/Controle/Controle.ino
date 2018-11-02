@@ -1,14 +1,14 @@
 #include <ControleMotor.h>
 
-	ControleMotor controle;
+ControleMotor contrVel, contrPos;
 
 void setup(){
-	controle.config();
-
+	contrVel.config(true);
+  contrPos.config(false);
 }
 
 void loop(){
-
-	controle.loop();
+  
+	contrPos.loop();
 
 }
