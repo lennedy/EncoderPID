@@ -1,0 +1,5 @@
+#define MOTOR_PWM			10
+#define MOTOR_DIRECAO	9
+
+#define ENCODER_CONTADOR	12	
+#define ENCODER_DIRECAO		11
