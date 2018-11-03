@@ -5,7 +5,9 @@
 //Motor ControleMotor::motor(MOTOR_PWM,MOTOR_DIRECAO);
 
 ControleMotor::ControleMotor():motor(MOTOR_PWM,MOTOR_DIRECAO),encoder(ENCODER_CONTADOR,ENCODER_DIRECAO),pid(&Input, &Output, &Setpoint, Kp, Ki, Kd, DIRECT)
- {}
+{
+	controleVelocidade=false;
+}
 
 void ControleMotor::config(){
 	Setpoint = 100;
@@ -23,9 +25,15 @@ void ControleMotor::loop(){
 
 	encoder.lerPulso();
 	if(util2.esperou(amostragem)){
-		Input = encoder.getAngulo();
+		if(controleVelocidade){
+			Input = encoder.getVelocidade();
+		}
+		else{
+			Input = encoder.getAngulo();
+		}
 		pid.Compute();
 		motor.acionar(Output);
+
 	}
 
 	if(util.esperou(1000)){
