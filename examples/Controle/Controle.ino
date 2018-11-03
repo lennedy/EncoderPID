@@ -1,14 +1,13 @@
-#include <ControleMotor.h>
+##include <ControleMotor.h>
 
-ControleMotor contrVel, contrPos;
+ControleMotor contrPos;
 
 void setup(){
-	contrVel.config(true);
-  contrPos.config(false);
+  Serial.begin(9600);
+  contrPos.config();
 }
-
+contrPos.loop()
 void loop(){
   
 	contrPos.loop();
-
 }

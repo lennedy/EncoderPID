@@ -4,25 +4,28 @@
 #include "Encoder.h"
 #include "Motor.h"
 #include "PID_v1.h"
-#include "Util.h"
+//#include "Util.h"
+#include "Pinagem.h"
 
 class ControleMotor{
 private:
-	double Kp=2, Ki=5, Kd=1;
-	double Setpoint, Input, Output;
-	float tempoAmostragem;
-	static Encoder encoder;
-	static Motor motor;
-	PID pid;
-	Util util;
-	bool contrVelocidade;
+  Encoder encoder;
+  Motor motor;
 
+  double Kp=1, Ki=0.5, Kd=0;
+  PID pid;
+  double Setpoint, Input, Output;
+
+	bool esperou(int milisegundos);
 public:
 	ControleMotor();
 
-	void config(bool contrVelocidade=true);
+	void config();
 
 	void loop();
+
+//	inline void setSetpoint(double setpoint){ this->Setpoint=setpoint;	}
+//	inline float getAngulo(){return encoder.getAngulo();}
 
 };
 
