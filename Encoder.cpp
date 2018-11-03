@@ -19,6 +19,10 @@ void Encoder::lerPulso(){
       numPulsos--;
   }
 
+	if(tempo.esperou(50)){
+		velocidade = calculaVelocidade();
+	}
+
 }
 
 bool Encoder::pinEdgeHigh(){

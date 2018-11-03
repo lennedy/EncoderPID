@@ -2,6 +2,7 @@
 #define ENCODER_H
 
 #include <Arduino.h>
+#include "Util.h"
 
 #define PULSOS_POR_REVOLUCAO 823.1
 
@@ -14,11 +15,13 @@ private:
 	long numPulsosAnterior;
 	long tempoAnterior;
 	float pulsosPorRevolucao;
+	float velocidade;
 
 	bool pinEdgeHigh();
 
 	float calculaVelocidade();
 	float calculaAngulo();
+	Util tempo;
 	
 public:
 	Encoder(unsigned int pin1, unsigned int pin2);
@@ -26,7 +29,7 @@ public:
 	void lerPulso();
 
 	inline long getNumPulsos(){return numPulsos;}
-	inline float getVelocidade(){return calculaVelocidade();}
+	inline float getVelocidade(){return velocidade;}
 	inline float getAngulo(){return calculaAngulo();}
 
 };
