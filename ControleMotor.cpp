@@ -9,6 +9,7 @@ ControleMotor::ControleMotor():motor(MOTOR_PWM,MOTOR_DIRECAO),encoder(ENCODER_CO
 
 void ControleMotor::config(){
 	Setpoint = 100;
+	amostragem = 50; // 50 milissegundos
 
   //turn the PID on
   pid.SetMode(AUTOMATIC);
@@ -20,10 +21,12 @@ void ControleMotor::config(){
 
 void ControleMotor::loop(){
 
- encoder.lerPulso();
-  Input = encoder.getAngulo();
-  pid.Compute();
-  motor.acionar(Output);
+	encoder.lerPulso();
+	if(util2.esperou(amostragem)){
+		Input = encoder.getAngulo();
+		pid.Compute();
+		motor.acionar(Output);
+	}
 
 	if(util.esperou(1000)){
 
@@ -39,7 +42,6 @@ void ControleMotor::loop(){
 		Serial.print(Input);
 		Serial.print("; Setpoint: ");
 		Serial.println(Setpoint);
-
 	}
 }
 

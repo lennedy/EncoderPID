@@ -12,10 +12,12 @@ private:
   Encoder encoder;
   Motor motor;
 	Util util;
+	Util util2;
 
   double Kp=1, Ki=0.5, Kd=0;
   PID pid;
   double Setpoint, Input, Output;
+	int amostragem; //tempo de amostragem em milissegundos
 
 public:
 	ControleMotor();
