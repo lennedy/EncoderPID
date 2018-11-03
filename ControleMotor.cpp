@@ -4,10 +4,8 @@
 //Encoder ControleMotor::encoder(ENCODER_CONTADOR, ENCODER_DIRECAO);
 //Motor ControleMotor::motor(MOTOR_PWM,MOTOR_DIRECAO);
 
-ControleMotor::ControleMotor():motor(10,9),encoder(12,11),pid(&Input, &Output, &Setpoint, Kp, Ki, Kd, DIRECT)
+ControleMotor::ControleMotor():motor(MOTOR_PWM,MOTOR_DIRECAO),encoder(ENCODER_CONTADOR,ENCODER_DIRECAO),pid(&Input, &Output, &Setpoint, Kp, Ki, Kd, DIRECT)
  {}
-
-
 
 void ControleMotor::config(){
 	Setpoint = 100;
@@ -15,12 +13,9 @@ void ControleMotor::config(){
   //turn the PID on
   pid.SetMode(AUTOMATIC);
   pid.SetOutputLimits(-100, 100);
-   Serial.begin(9600);
-   encoder.config();
-   motor.config();    
+  encoder.config();
+  motor.config();    
 	
-
-
 }
 
 void ControleMotor::loop(){
@@ -30,7 +25,7 @@ void ControleMotor::loop(){
   pid.Compute();
   motor.acionar(Output);
 
-	if(esperou(1000)){
+	if(util.esperou(1000)){
 
 		Serial.print("kp: ");
 		Serial.print(pid.GetKp());
@@ -48,14 +43,4 @@ void ControleMotor::loop(){
 	}
 }
 
-bool ControleMotor::esperou(int milisegundos){
-	static int tempoAtual=0;
-	static int tempoAnterior=0;
 
-	tempoAtual = millis();
-	if(tempoAtual-tempoAnterior > milisegundos){
-		tempoAnterior = tempoAtual;
-		return true;
-	}
-	return false;
-}

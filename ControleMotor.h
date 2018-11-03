@@ -4,19 +4,19 @@
 #include "Encoder.h"
 #include "Motor.h"
 #include "PID_v1.h"
-//#include "Util.h"
+#include "Util.h"
 #include "Pinagem.h"
 
 class ControleMotor{
 private:
   Encoder encoder;
   Motor motor;
+	Util util;
 
   double Kp=1, Ki=0.5, Kd=0;
   PID pid;
   double Setpoint, Input, Output;
 
-	bool esperou(int milisegundos);
 public:
 	ControleMotor();
 
@@ -24,8 +24,8 @@ public:
 
 	void loop();
 
-//	inline void setSetpoint(double setpoint){ this->Setpoint=setpoint;	}
-//	inline float getAngulo(){return encoder.getAngulo();}
+	inline void setSetpoint(double setpoint){ this->Setpoint=setpoint;	}
+	inline float getAngulo(){return encoder.getAngulo();}
 
 };
 
